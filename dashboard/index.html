@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security ML Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+        }
+        .card-header {
+            background-color: #21262d;
+            border-bottom: 1px solid #30363d;
+        }
+        .navbar {
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+        .navbar-brand {
+            color: #58a6ff !important;
+        }
+        .btn-primary {
+            background-color: #238636;
+            border-color: #238636;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+            border-color: #2ea043;
+        }
+        .alert-danger {
+            background-color: #da3633;
+            border-color: #da3633;
+        }
+        .alert-success {
+            background-color: #238636;
+            border-color: #238636;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .metric-label {
+            color: #8b949e;
+        }
+        .table {
+            color: #c9d1d9;
+        }
+        .table thead th {
+            background-color: #21262d;
+            border-color: #30363d;
+        }
+        .table tbody tr {
+            border-color: #30363d;
+        }
+        .form-control {
+            background-color: #0d1117;
+            border-color: #30363d;
+            color: #c9d1d9;
+        }
+        .form-control:focus {
+            background-color: #0d1117;
+            border-color: #58a6ff;
+            color: #c9d1d9;
+            box-shadow: 0 0 0 0.25rem rgba(88, 166, 255, 0.25);
+        }
+        .form-label {
+            color: #c9d1d9;
+        }
+        .nav-link {
+            color: #8b949e !important;
+        }
+        .nav-link:hover {
+            color: #58a6ff !important;
+        }
+        .nav-link.active {
+            color: #58a6ff !important;
+        }
+        section {
+            scroll-margin-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-shield-lock"></i> Cyber Security ML Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#performance">Model Performance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#detection">Threat Detection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#history">History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Overview Section -->
+        <section id="overview" class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard Overview</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="metric-value" id="totalPredictions">-</div>
+                            <div class="metric-label">Total Predictions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="metric-value text-danger" id="threatsDetected">-</div>
+                            <div class="metric-label">Threats Detected</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="metric-value text-warning" id="falsePositives">-</div>
+                            <div class="metric-label">False Positives</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="metric-value text-success" id="systemStatus">-</div>
+                            <div class="metric-label">System Status</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Performance Section -->
+        <section id="performance" class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-graph-up"></i> Model Performance</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Accuracy Comparison</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="accuracyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">F1-Score Comparison</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="f1ScoreChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Detailed Metrics</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Accuracy</th>
+                                            <th>Precision</th>
+                                            <th>Recall</th>
+                                            <th>F1-Score</th>
+                                            <th>ROC-AUC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="metricsTable">
+                                        <!-- Metrics will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Threat Detection Section -->
+        <section id="detection" class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-shield-exclamation"></i> Threat Detection</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Anomaly Detection (Isolation Forest)</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="anomalyForm">
+                                <div class="mb-3">
+                                    <label for="anomalyFeatures" class="form-label">Feature Vector (comma-separated)</label>
+                                    <input type="text" class="form-control" id="anomalyFeatures"
+                                           placeholder="1.2, 0.5, -0.3, 2.1, 0.8">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i> Detect Anomaly
+                                </button>
+                            </form>
+                            <div id="anomalyResult" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Threat Classification (Ensemble)</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="classificationForm">
+                                <div class="mb-3">
+                                    <label for="classFeatures" class="form-label">Feature Vector (comma-separated)</label>
+                                    <input type="text" class="form-control" id="classFeatures"
+                                           placeholder="1.2, 0.5, -0.3, 2.1, 0.8">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i> Classify Threat
+                                </button>
+                            </form>
+                            <div id="classificationResult" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-clock-history"></i> Threat History</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Threat Trend (Last 7 Days)</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Threat Intelligence Section -->
+        <section id="intel" class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-brain"></i> Threat Intelligence</h2>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">AI-Powered Threat Analysis</h5>
+                </div>
+                <div class="card-body">
+                    <form id="intelForm">
+                        <div class="mb-3">
+                            <label for="intelInput" class="form-label">Log Data or Description</label>
+                            <textarea class="form-control" id="intelInput" rows="4"
+                                      placeholder="Enter network log or threat description for AI analysis..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-cpu"></i> Analyze with AI
+                        </button>
+                    </form>
+                    <div id="intelResult" class="mt-3"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 mt-5" style="background-color: #161b22; border-top: 1px solid #30363d;">
+        <p class="mb-0">Cyber Security ML Dashboard - Skripsi Muhammad Arya Fatthurahman (2023230006)</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dynamic API URL configuration
+        // Detect if running via Flask server or as static file
+        const isServerMode = window.location.port === '5000' || window.location.href.includes(':5000');
+        const API_URL = isServerMode ? '/api' : 'http://localhost:5000/api';
+
+        // Show API status indicator
+        function showApiStatus() {
+            if (!isServerMode) {
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'alert alert-warning mt-3';
+                statusDiv.innerHTML = `
+                    <strong>Running in Offline Mode:</strong> You are viewing the dashboard as a static file.
+                    <br>For full functionality, please start the Flask API server by running:
+                    <code>python start_server.py</code> or <code>python run_dashboard.py</code>
+                    <br>Then visit <a href="http://localhost:5000" target="_blank">http://localhost:5000</a>
+                `;
+                document.querySelector('.container').insertBefore(statusDiv, document.querySelector('.container').firstChild);
+            }
+        }
+
+        // Load overview data
+        async function loadOverview() {
+            try {
+                const response = await fetch(`${API_URL}/history`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                document.getElementById('totalPredictions').textContent = data.total_predictions.toLocaleString();
+                document.getElementById('threatsDetected').textContent = data.threats_detected.toLocaleString();
+                document.getElementById('falsePositives').textContent = data.false_positives.toLocaleString();
+                document.getElementById('systemStatus').textContent = 'Active';
+            } catch (error) {
+                console.error('Error loading overview:', error);
+                document.getElementById('totalPredictions').textContent = 'N/A';
+                document.getElementById('threatsDetected').textContent = 'N/A';
+                document.getElementById('falsePositives').textContent = 'N/A';
+                document.getElementById('systemStatus').textContent = 'Offline';
+            }
+        }
+
+        // Load performance metrics
+        async function loadPerformance() {
+            try {
+                const response = await fetch(`${API_URL}/performance`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                // Populate table
+                const tbody = document.getElementById('metricsTable');
+                tbody.innerHTML = '';
+
+                for (const [model, metrics] of Object.entries(data)) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${model.toUpperCase()}</td>
+                        <td>${(metrics.accuracy * 100).toFixed(2)}%</td>
+                        <td>${(metrics.precision * 100).toFixed(2)}%</td>
+                        <td>${(metrics.recall * 100).toFixed(2)}%</td>
+                        <td>${(metrics.f1_score * 100).toFixed(2)}%</td>
+                        <td>${metrics.roc_auc ? metrics.roc_auc.toFixed(4) : 'N/A'}</td>
+                    `;
+                    tbody.appendChild(row);
+                }
+
+                // Create charts
+                createAccuracyChart(data);
+                createF1ScoreChart(data);
+            } catch (error) {
+                console.error('Error loading performance:', error);
+                const tbody = document.getElementById('metricsTable');
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">Unable to load performance data. Is the API server running?</td></tr>';
+            }
+        }
+
+        // Create accuracy chart
+        function createAccuracyChart(data) {
+            const ctx = document.getElementById('accuracyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data).map(m => m.toUpperCase()),
+                    datasets: [{
+                        label: 'Accuracy',
+                        data: Object.values(data).map(m => m.accuracy * 100),
+                        backgroundColor: ['#238636', '#58a6ff', '#d29922', '#da3633']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create F1-Score chart
+        function createF1ScoreChart(data) {
+            const ctx = document.getElementById('f1ScoreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data).map(m => m.toUpperCase()),
+                    datasets: [{
+                        label: 'F1-Score',
+                        data: Object.values(data).map(m => m.f1_score * 100),
+                        backgroundColor: ['#238636', '#58a6ff', '#d29922', '#da3633']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load history chart
+        async function loadHistory() {
+            try {
+                const response = await fetch(`${API_URL}/history`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                const ctx = document.getElementById('historyChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.trend.map(t => t.date),
+                        datasets: [{
+                            label: 'Threats Detected',
+                            data: data.trend.map(t => t.threats),
+                            borderColor: '#da3633',
+                            backgroundColor: 'rgba(218, 54, 51, 0.1)',
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading history:', error);
+            }
+        }
+
+        // Anomaly detection form
+        document.getElementById('anomalyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const features = document.getElementById('anomalyFeatures').value.split(',').map(f => parseFloat(f.trim()));
+
+            try {
+                const response = await fetch(`${API_URL}/predict/anomaly`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ features })
+                });
+                const data = await response.json();
+
+                const resultDiv = document.getElementById('anomalyResult');
+                if (data.prediction[0] === 1) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <strong>Anomaly Detected!</strong><br>
+                            Anomaly Score: ${data.anomaly_score[0].toFixed(4)}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <strong>Normal Traffic</strong><br>
+                            Anomaly Score: ${data.anomaly_score[0].toFixed(4)}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('anomalyResult').innerHTML = `
+                    <div class="alert alert-danger">Error: ${error.message}</div>
+                `;
+            }
+        });
+
+        // Classification form
+        document.getElementById('classificationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const features = document.getElementById('classFeatures').value.split(',').map(f => parseFloat(f.trim()));
+
+            try {
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ features })
+                });
+                const data = await response.json();
+
+                const resultDiv = document.getElementById('classificationResult');
+                if (data.prediction[0] === 1) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <strong>Threat Detected!</strong><br>
+                            Attack Probability: ${(data.probability[0][1] * 100).toFixed(2)}%
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <strong>Normal Traffic</strong><br>
+                            Normal Probability: ${(data.probability[0][0] * 100).toFixed(2)}%
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('classificationResult').innerHTML = `
+                    <div class="alert alert-danger">Error: ${error.message}</div>
+                `;
+            }
+        });
+
+        // Threat intelligence form
+        document.getElementById('intelForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const instruction = document.getElementById('intelInput').value;
+
+            try {
+                const response = await fetch(`${API_URL}/threat-intel`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ instruction })
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                const resultDiv = document.getElementById('intelResult');
+                resultDiv.innerHTML = `
+                    <div class="alert alert-info">
+                        <strong>Analysis:</strong> ${data.analysis}<br><br>
+                        <strong>Recommendations:</strong>
+                        <ul>
+                            ${data.recommendations.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                        <strong>Confidence:</strong> ${(data.confidence * 100).toFixed(2)}%
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('intelResult').innerHTML = `
+                    <div class="alert alert-danger">Error: ${error.message}</div>
+                `;
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showApiStatus();
+            loadOverview();
+            loadPerformance();
+            loadHistory();
+        });
+    </script>
+</body>
+</html>
