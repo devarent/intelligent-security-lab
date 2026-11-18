@@ -314,3 +314,11 @@ Untuk pertanyaan atau diskusi, silakan hubungi penulis melalui email: [email]
 ---
 
 **Catatan**: Proyek ini dikembangkan untuk penelitian skripsi dan tujuan akademis. Gunakan dengan bijak dan sesuai dengan regulasi yang berlaku.
+
+---
+
+## Project Governance
+
+[![CI](https://github.com/aryafatthurahman4-collab/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml/badge.svg)](https://github.com/aryafatthurahman4-collab/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml)
+
+[Contributing](CONTRIBUTING.md) | [Security Policy](SECURITY.md) | [Code of Conduct](CODE_OF_CONDUCT.md)
