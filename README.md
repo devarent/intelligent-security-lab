@@ -1,3 +1,26 @@
+
+<!-- dbx-style-kit -->
+<div align="center">
+
+<img src="https://img.shields.io/badge/keamanan-berbasis-sistem-cerdas-1f6feb?style=for-the-badge" alt="keamanan-berbasis-sistem-cerdas" />
+<img src="https://img.shields.io/badge/LANG%20Python-3178c6?style=for-the-badge" alt="LANG Python" />
+<img src="https://img.shields.io/badge/STARS%200-eab308?style=for-the-badge" alt="STARS 0" />
+<img src="https://img.shields.io/badge/LICENSE%20MIT-22c55e?style=for-the-badge" alt="LICENSE MIT" />
+
+<br>
+
+<img src="https://img.shields.io/badge/OPEN%20SOURCE-yes-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="OPEN SOURCE" />
+<img src="https://img.shields.io/badge/BUILT%20IN%20PUBLIC-true-6366f1?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="BUILT IN PUBLIC" />
+<img src="https://img.shields.io/badge/HANDS%20ON%20LABS-52-0ea5e9?style=for-the-badge&logo=docker&logoColor=white" alt="HANDS ON LABS" />
+<img src="https://img.shields.io/badge/DOCUMENTED-yes-14b8a6?style=for-the-badge&logo=markdown&logoColor=white" alt="DOCUMENTED" />
+
+<br>
+
+<b>Riset dan prototipe keamanan berbasis sistem cerdas.</b>
+
+</div>
+
+---
 # Cyber Security ML - Machine Learning untuk Deteksi Ancaman Keamanan Siber
 
 Proyek ini mengimplementasikan berbagai algoritma machine learning untuk deteksi ancaman keamanan siber, mencakup deteksi intrusi jaringan, klasifikasi malware, dan keamanan perangkat IoT.
