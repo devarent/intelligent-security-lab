@@ -319,7 +319,7 @@ Untuk pertanyaan atau diskusi, silakan hubungi penulis melalui email: [email]
 
 ## Project Governance
 
-[![CI](https://github.com/aryafatthurahman4-collab/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml/badge.svg)](https://github.com/aryafatthurahman4-collab/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml)
+[![CI](https://github.com/devarent/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml)
 
 [Contributing](CONTRIBUTING.md) | [Security Policy](SECURITY.md) | [Code of Conduct](CODE_OF_CONDUCT.md)
 
