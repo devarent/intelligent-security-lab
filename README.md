@@ -36,7 +36,7 @@ intelligent-security-lab is a hands-on repository focused on: Riset dan prototip
 <!-- dbx-style-kit -->
 <div align="center">
 
-<img src="https://img.shields.io/badge/keamanan-berbasis-sistem-cerdas-1f6feb?style=for-the-badge" alt="keamanan-berbasis-sistem-cerdas" />
+<img src="https://img.shields.io/badge/intelligent-security-lab-1f6feb?style=for-the-badge" alt="intelligent-security-lab" />
 <img src="https://img.shields.io/badge/LANG%20Python-3178c6?style=for-the-badge" alt="LANG Python" />
 <img src="https://img.shields.io/badge/STARS%200-eab308?style=for-the-badge" alt="STARS 0" />
 <img src="https://img.shields.io/badge/LICENSE%20MIT-22c55e?style=for-the-badge" alt="LICENSE MIT" />
@@ -376,7 +376,7 @@ Untuk pertanyaan atau diskusi, silakan hubungi penulis melalui email: [email]
 
 ## Project Governance
 
-[![CI](https://github.com/devarent/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/keamanan-berbasis-sistem-cerdas/actions/workflows/ci.yml)
+[![CI](https://github.com/devarent/intelligent-security-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/intelligent-security-lab/actions/workflows/ci.yml)
 
 [Contributing](CONTRIBUTING.md) | [Security Policy](SECURITY.md) | [Code of Conduct](CODE_OF_CONDUCT.md)
 
