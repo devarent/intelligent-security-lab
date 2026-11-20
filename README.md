@@ -1,4 +1,38 @@
 
+<!-- identity-block -->
+<div align="center">
+
+# intelligent-security-lab
+
+<sub>Riset dan prototipe keamanan berbasis sistem cerdas.</sub>
+
+</div>
+
+## At a glance
+
+| Field | Detail |
+| --- | --- |
+| Repository | intelligent-security-lab |
+| Primary language | Python |
+| Topics | artificial-intelligence, cybersecurity, machine-learning, python, research, security |
+| License | MIT |
+| Branch | main |
+| Maintainer | [@devarent](https://github.com/devarent) |
+
+## Overview
+
+intelligent-security-lab is a hands-on repository focused on: Riset dan prototipe keamanan berbasis sistem cerdas.. Primary language: Python. Topics: artificial-intelligence, cybersecurity, machine-learning, python, research, security. The README below documents the project; use the table above for a quick overview.
+
+### Global references
+
+<div align="center">
+
+🇮🇸 Iceland &middot; 🇳🇿 New Zealand &middot; 🇨🇭 Switzerland &middot; 🇸🇮 Slovenia &middot; 🇮🇪 Ireland &middot; 🇦🇹 Austria &middot; 🇵🇹 Portugal &middot; 🇸🇬 Singapore &middot; 🇫🇮 Finland
+
+</div>
+
+---
+
 <!-- dbx-style-kit -->
 <div align="center">
 
